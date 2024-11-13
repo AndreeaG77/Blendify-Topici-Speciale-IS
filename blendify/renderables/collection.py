@@ -127,6 +127,49 @@ class RenderablesCollection(metaclass=Singleton):
         self._renderables[tag] = obj
         return obj
 
+    def add_text_mesh(
+            self,
+            text: str,
+            font_size: float,
+            material: Union[Material, MaterialList],
+            colors: Union[Colors, ColorsList],
+            rotation_mode: str = "quaternionWXYZ",
+            rotation: RotationParams = None,
+            translation: Vector3d = (0, 0, 0),
+            tag: str = None
+    ) -> primitives.TextMesh:
+        """Add TextMesh object to the scene.
+        The object supports uniform (UniformColors) and per-vertex (VertexColors) coloring.
+
+        Args:
+            text (str): the text string to be rendered
+            font_size (float): size of the text
+            material (Union[Material, MaterialList]): Material instance or list of Material instances
+            colors (Union[Colors, ColorsList]): Colors instance or list of Colors instances
+            rotation_mode (str): type of rotation representation.
+                Can be one of the following:
+                - "quaternionWXYZ" - WXYZ quaternion
+                - "quaternionXYZW" - XYZW quaternion
+                - "rotvec" - axis-angle representation of rotation
+                - "rotmat" - 3x3 rotation matrix
+                - "euler<mode>" - Euler angles with the specified order of rotation, e.g. XYZ, xyz, ZXZ, etc. Refer to scipy.spatial.transform.Rotation.from_euler for details.
+                - "look_at" - look at rotation, the rotation is defined by the point to look at and, optional, the rotation around the forward direction vector (a single float value in tuple or list)
+            rotation (RotationParams): rotation parameters according to the rotation_mode
+            translation (Vector3d, optional): translation applied to the Blender object (default: (0,0,0))
+            tag (str, optional): name of the created object in Blender. If None is passed, the tag
+                is automatically generated (default: None)
+
+        Returns:
+            TextMesh: created and added to the scene object
+        """
+        tag = self._process_tag(tag, "TextMesh")
+        obj = primitives.TextMesh(
+            text=text, font_size=font_size, material=material, colors=colors,
+            rotation_mode=rotation_mode, rotation=rotation, translation=translation, tag=tag
+        )
+        self._renderables[tag] = obj
+        return obj
+
     def add_cube_mesh(
             self,
             size: float,
