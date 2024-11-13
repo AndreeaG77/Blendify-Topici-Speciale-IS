@@ -81,6 +81,66 @@ class MeshPrimitive(RenderableObject):
             # bmesh.update_edit_mesh(self._blender_object.data)
             bpy.ops.object.mode_set(mode='OBJECT')
 
+class TextMesh(MeshPrimitive):
+    """Text mesh primitive, supports only uniform coloring (UniformColors)
+
+    Properties:
+        emit_shadow (bool, optional): control whether the object will emit shadow from any light source in the scene.
+
+    Methods:
+        set_smooth(bool): turns smooth shading on and off based on the bool argument.
+    """
+    def __init__(
+        self,
+        text: str,
+        material: Material,
+        colors: Colors,
+        tag: str,
+        size: float = 1.0,
+        **kwargs
+    ):
+        """Creates Blender Object that represents 3D text mesh primitive
+
+        Args:
+            text (str): text to display
+            size (float): size of the text
+            material (Material): Material instance for the text
+            colors (Colors): Colors instance for the text
+            tag (str): name of the created object in Blender
+        """
+        obj = self._blender_create_object(text, size, tag)
+        self._blender_mesh = obj.data
+        super().__init__(material=material, colors=colors, blender_object=obj, tag=tag, **kwargs)
+
+    def _blender_create_object(
+        self,
+        text: str,
+        size: float,
+        tag: str
+    ):
+        bpy.ops.object.text_add()  # Add a text object
+        obj = bpy.context.object
+        obj.data.body = text  # Set the text content
+        obj.name = tag  # Set the name of the object
+
+        # Adjust size and other properties
+        obj.scale = (size, size, size)  # Scale text uniformly
+        obj.data.extrude = 0.1  # Optional: extrude to make the text thicker in the 3D space
+
+        return obj
+
+    def _blender_set_colors(
+        self,
+        colors_list: ColorsList
+    ):
+        """Remembers current color properties, builds a color node for material, sets color information to mesh
+
+        Args:
+            colors_list (ColorsList): list of target colors
+        """
+        bpy.context.view_layer.objects.active = self._blender_object
+        bpy.ops.object.shade_smooth()  # Add smooth shading
+        super()._blender_set_colors(colors_list)
 
 class CubeMesh(MeshPrimitive):
     """Cube mesh primitive, supports only uniform coloring (UniformColors)
