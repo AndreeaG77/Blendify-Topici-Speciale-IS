@@ -1,5 +1,6 @@
 # Blendify-modified version
-
+We added a text mesh class definition inside the primitives file and integrated it in the API for easier access.
+This class is used for rendering 3D text.
 ## How to install modified version of Blendify
 * Clone repository
 * Open project with Pycharm (Python 3.10 needed)
