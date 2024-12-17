@@ -17,3 +17,5 @@ This class is used for rendering 3D text.
   ```bash
   pip install -e .[all]
   ```
+## Artefact interaction
+We replicated the cube renderer script and one of the google colab demos. We also added a cylinder renderer script where we test various materials. 
