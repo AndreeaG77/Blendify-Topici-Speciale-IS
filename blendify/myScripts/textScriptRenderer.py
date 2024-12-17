@@ -10,14 +10,14 @@ scene.lights.add_point(strength=1000, translation=(4, -2, 4))
 scene.set_perspective_camera((512, 512), fov_x=0.7, rotation=(0.82, 0.42, 0.18, 0.34), translation=(10, -10, 10))
 
 # Create material and color for the text
-material_text = PrincipledBSDFMaterial()
-color_text = UniformColors((0.8, 0.1, 0.2))
+material = PrincipledBSDFMaterial()
+color = UniformColors((0.8, 0.1, 0.2))
 
 scene.renderables.add_text_mesh(
     text="Hello World",
     size=1,
-    material=material_text,
-    colors=color_text,
+    material=material,
+    colors=color,
     tag="text1",
     translation=(-0.5, -2, 0),
     rotation=(90, 90, 30, 35)
