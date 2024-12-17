@@ -1,9 +1,7 @@
 # Blendify-modified version
-We added a text mesh class definition inside the primitives file and integrated it in the API for easier access.
-This class is used for rendering 3D text.
-## How to install modified version of Blendify
+## Artefact replication
 * Clone repository
-* Open project with Pycharm (Python 3.10 needed)
+* Open project with Pycharm (Python 3.10 required)
 * Setup virtual environment <br/>
   - Create virtual env: <br/>
   ```bash
@@ -18,4 +16,6 @@ This class is used for rendering 3D text.
   pip install -e .[all]
   ```
 ## Artefact interaction
-We replicated the cube renderer script and one of the google colab demos. We also added a cylinder renderer script where we test various materials. 
+We reproduced the cube renderer script and one of the google colab demos. We also added a cylinder renderer script where we test materials.
+## Artefact contributions
+We added a text mesh class definition inside the primitives file and integrated it in the API for easier access.This class is used for rendering 3D text.
