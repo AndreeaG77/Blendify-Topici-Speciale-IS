@@ -130,7 +130,7 @@ class RenderablesCollection(metaclass=Singleton):
     def add_text_mesh(
             self,
             text: str,
-            font_size: float,
+            size: float,
             material: Union[Material, MaterialList],
             colors: Union[Colors, ColorsList],
             rotation_mode: str = "quaternionWXYZ",
@@ -164,7 +164,7 @@ class RenderablesCollection(metaclass=Singleton):
         """
         tag = self._process_tag(tag, "TextMesh")
         obj = primitives.TextMesh(
-            text=text, font_size=font_size, material=material, colors=colors,
+            text=text, size=size, material=material, colors=colors,
             rotation_mode=rotation_mode, rotation=rotation, translation=translation, tag=tag
         )
         self._renderables[tag] = obj
